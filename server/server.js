@@ -21,10 +21,10 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 })
 
-let newProfile = new Profile({ username: 'Tony', favorites: ['cool torta shack', 'tortas in someones backyard']});
-newProfile.save((err, newProfile) => {
-    if (err) return console.error(err);
-    console.log('Created new profile dude!')
-});
+// let newProfile = new Profile({ username: 'Tony', favorites: ['cool torta shack', 'tortas in someones backyard']});
+// newProfile.save((err, newProfile) => {
+//     if (err) return console.error(err);
+//     console.log('Created new profile dude!')
+// });
 
 
