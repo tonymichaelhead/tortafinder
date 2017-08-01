@@ -22454,7 +22454,22 @@ var App = function (_React$Component) {
 
             _axios2.default.post('/search', query).then(function (results) {
                 console.log(results.data);
-                _this2.setState({ tortaList: results.data.businesses });
+
+                var newTortaList = [];
+
+                for (var i = 0; i < results.data.businesses.length; i++) {
+                    var newTorta = {
+                        image: results.data.businesses[i].image_url,
+                        name: results.data.businesses[i].name,
+                        city: results.data.businesses[i].location.city,
+                        rating: results.data.businesses[i].rating,
+                        reviewCount: results.data.businesses[i].review_count
+                    };
+                    console.log('new object', newTorta);
+                    newTortaList.push(newTorta);
+                }
+                //console.log(newTortaList);
+                _this2.setState({ tortaList: newTortaList });
             }).catch(function (err) {
                 console.log(err);
             });
@@ -24151,23 +24166,39 @@ var Torta = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Torta.__proto__ || Object.getPrototypeOf(Torta)).call(this, props));
 
         _this.saveToFavorites = _this.saveToFavorites.bind(_this);
+        _this.state = _this.props.torta;
+
+        //{
+        // image_url: this.props.torta.image_url,
+        // name: this.props.torta.name,
+        // location: { this.props}this.props.torta.location.city,
+        // rating: this.props.torta.rating,
+        // reviewCount: this.props.torta.review_count,
+
+        // image: this.props.torta.image_url,
+        // name: this.props.torta.name,
+        // city: this.props.torta.location.city,
+        // rating: this.props.torta.rating,
+        // reviewCount: this.props.torta.review_count,
+        //}
         return _this;
     }
 
     _createClass(Torta, [{
         key: 'saveToFavorites',
         value: function saveToFavorites() {
-            console.log(this.props.torta);
-            var favTorta = {
-                image: this.props.torta.image_url,
-                name: this.props.torta.name,
-                city: this.props.torta.location.city,
-                rating: this.props.torta.rating,
-                reviewCount: this.props.torta.review_count
-            };
+            var _this2 = this;
 
-            _axios2.default.post('/favorites', favTorta).then(function (result) {
-                console.log('Successfully POSTed!!');
+            // let favTorta = {
+            //     image: this.props.torta.image_url,
+            //     name: this.props.torta.name,
+            //     city: this.props.torta.location.city,
+            //     rating: this.props.torta.rating,
+            //     reviewCount: this.props.torta.review_count,
+            // }
+            console.log(this.props.torta);
+            _axios2.default.post('/favorites', this.props.torta).then(function (result) {
+                console.log('Successfully POSTed!!', _this2.props.torta);
                 //toggle button state to say favorited!
             }).catch(function (err) {
                 console.log(err);
@@ -24185,24 +24216,29 @@ var Torta = function (_React$Component) {
                     _react2.default.createElement(
                         'td',
                         null,
-                        _react2.default.createElement('img', { className: 'torta-pic', src: this.props.torta.image_url, style: { height: "100px" } })
+                        _react2.default.createElement('img', { className: 'torta-pic', src: this.state.image, style: { height: "100px" } })
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
-                        this.props.torta.name
+                        this.state.name
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
-                        this.props.torta.rating,
+                        this.state.city
+                    ),
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        this.state.rating,
                         '/5'
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
                         'Reviews: ',
-                        this.props.torta.review_count
+                        this.state.reviewCount
                     )
                 ),
                 _react2.default.createElement(

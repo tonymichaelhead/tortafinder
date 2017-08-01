@@ -20,7 +20,22 @@ class App extends React.Component {
         .post('/search', query)
             .then(results => {
                 console.log(results.data);
-                this.setState({ tortaList: results.data.businesses });
+
+                let newTortaList = [];
+                
+                for (var i = 0; i < results.data.businesses.length; i++) {
+                    let newTorta = {
+                        image: results.data.businesses[i].image_url,
+                        name: results.data.businesses[i].name,
+                        city: results.data.businesses[i].location.city,
+                        rating: results.data.businesses[i].rating,
+                        reviewCount: results.data.businesses[i].review_count,
+                    }
+                    console.log('new object',newTorta)
+                    newTortaList.push(newTorta);    
+                }
+                //console.log(newTortaList);
+                this.setState({ tortaList: newTortaList });
             })
             .catch(err => {
                 console.log(err);

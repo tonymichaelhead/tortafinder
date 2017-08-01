@@ -9,7 +9,7 @@ class TortaList extends React.Component {
     render() {
         return (
             <table style={{width:'100%'}}>
-                    { this.props.tortaList.map(torta => <Torta torta={torta}/>)}
+                    { this.props.tortaList.map(torta => <Torta torta={torta}/>) }
             </table>
         )
     }
