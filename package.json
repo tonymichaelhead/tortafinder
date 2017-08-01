@@ -28,6 +28,7 @@
     "node-yelp-api-v3": "^1.0.1",
     "path": "^0.12.7",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.1",
     "react-dom": "^15.6.1",
     "webpack": "^3.4.1"
   },

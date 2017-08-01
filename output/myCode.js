@@ -22437,10 +22437,11 @@ var App = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.getTortas = _this.getTortas.bind(_this);
         _this.state = {
             tortaList: []
         };
+        _this.getTortas = _this.getTortas.bind(_this);
+        _this.showFavorites = _this.showFavorites.bind(_this);
         return _this;
     }
 
@@ -22459,6 +22460,19 @@ var App = function (_React$Component) {
             });
         }
     }, {
+        key: 'showFavorites',
+        value: function showFavorites() {
+            var _this3 = this;
+
+            //wipe current state and send a get request to the server to 
+            _axios2.default.get('/favorites').then(function (results) {
+                console.log('GOT favorites!!', results.data);
+                _this3.setState({ tortaList: results.data });
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -22467,12 +22481,18 @@ var App = function (_React$Component) {
                 _react2.default.createElement(
                     'h1',
                     null,
-                    'Torta Amigo'
+                    'TortAmigo'
                 ),
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'button',
                     { onClick: this.getTortas },
                     'Get Tortas!'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.showFavorites },
+                    ' Show Favorites'
                 ),
                 _react2.default.createElement(_tortaList2.default, { tortaList: this.state.tortaList })
             );
@@ -24110,6 +24130,10 @@ var _react = __webpack_require__(82);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(192);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24124,41 +24148,67 @@ var Torta = function (_React$Component) {
     function Torta(props) {
         _classCallCheck(this, Torta);
 
-        return _possibleConstructorReturn(this, (Torta.__proto__ || Object.getPrototypeOf(Torta)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Torta.__proto__ || Object.getPrototypeOf(Torta)).call(this, props));
+
+        _this.saveToFavorites = _this.saveToFavorites.bind(_this);
+        return _this;
     }
 
     _createClass(Torta, [{
-        key: "render",
+        key: 'saveToFavorites',
+        value: function saveToFavorites() {
+            console.log(this.props.torta);
+            var favTorta = {
+                image: this.props.torta.image_url,
+                name: this.props.torta.name,
+                city: this.props.torta.location.city,
+                rating: this.props.torta.rating,
+                reviewCount: this.props.torta.review_count
+            };
+
+            _axios2.default.post('/favorites', favTorta).then(function (result) {
+                console.log('Successfully POSTed!!');
+                //toggle button state to say favorited!
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }, {
+        key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                "tr",
+                'div',
                 null,
                 _react2.default.createElement(
-                    "td",
+                    'tr',
                     null,
-                    _react2.default.createElement("img", { id: "torta-pic", src: this.props.torta.image_url, style: { height: "100px" } })
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        _react2.default.createElement('img', { className: 'torta-pic', src: this.props.torta.image_url, style: { height: "100px" } })
+                    ),
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        this.props.torta.name
+                    ),
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        this.props.torta.rating,
+                        '/5'
+                    ),
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        'Reviews: ',
+                        this.props.torta.review_count
+                    )
                 ),
                 _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.torta.name
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.torta.location.city
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    this.props.torta.rating,
-                    "/5"
-                ),
-                _react2.default.createElement(
-                    "td",
-                    null,
-                    "Reviews: ",
-                    this.props.torta.review_count
+                    'button',
+                    { onClick: this.saveToFavorites },
+                    'Favorite this!'
                 )
             );
         }

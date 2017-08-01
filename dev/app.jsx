@@ -6,10 +6,11 @@ import TortaList from './tortaList.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-        this.getTortas = this.getTortas.bind(this);
         this.state = {
             tortaList: []
         }
+        this.getTortas = this.getTortas.bind(this);
+        this.showFavorites = this.showFavorites.bind(this);
     }
   
   getTortas() {
@@ -26,11 +27,25 @@ class App extends React.Component {
             })
   }
 
+  showFavorites() {
+    //wipe current state and send a get request to the server to 
+    axios.get('/favorites')
+        .then(results => {
+            console.log('GOT favorites!!', results.data);
+            this.setState({ tortaList: results.data });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+  }
+
   render() {
     return (
         <div>
-            <h1>Torta Amigo</h1>
+            <h1>TortAmigo</h1>
+            <br/>
             <button onClick={this.getTortas}>Get Tortas!</button>
+            <button onClick={this.showFavorites}> Show Favorites</button>
             <TortaList tortaList={this.state.tortaList}/>
         </div>
     );
