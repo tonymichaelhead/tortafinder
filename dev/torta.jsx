@@ -5,7 +5,7 @@ class Torta extends React.Component{
     constructor(props) {
         super(props);
         this.saveToFavorites = this.saveToFavorites.bind(this);
-        this.state = this.props.torta;
+        // this.state.torta = this.props.torta;
         
         //{
             // image_url: this.props.torta.image_url,
@@ -45,14 +45,15 @@ class Torta extends React.Component{
     } 
     
     render(){
+        console.log('torta state: ', this.props.torta)
         return (
             <div>
                 <tr>
-                    <td><img className="torta-pic" src={this.state.image} style={{height:"100px"}}/></td>
-                    <td>{this.state.name}</td>
-                    <td>{this.state.city}</td> 
-                    <td>{this.state.rating}/5</td>
-                    <td>Reviews: {this.state.reviewCount}</td>
+                    <td><img className="torta-pic" src={this.props.torta.image} style={{height:"100px"}}/></td>
+                    <td>{this.props.torta.name}</td>
+                    <td>{this.props.torta.city}</td> 
+                    <td>{this.props.torta.rating}/5</td>
+                    <td>Reviews: {this.props.torta.reviewCount}</td>
                 </tr>
                 <button onClick={this.saveToFavorites}>Favorite this!</button>
             </div>

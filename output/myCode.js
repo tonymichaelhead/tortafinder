@@ -22447,13 +22447,13 @@ var App = function (_React$Component) {
 
     _createClass(App, [{
         key: 'getTortas',
-        value: function getTortas() {
+        value: function getTortas(e) {
             var _this2 = this;
 
+            e.preventDefault();
             var query = { text: 'ayyoo' };
 
             _axios2.default.post('/search', query).then(function (results) {
-                console.log(results.data);
 
                 var newTortaList = [];
 
@@ -22476,13 +22476,15 @@ var App = function (_React$Component) {
         }
     }, {
         key: 'showFavorites',
-        value: function showFavorites() {
+        value: function showFavorites(e) {
             var _this3 = this;
 
+            e.preventDefault();
             //wipe current state and send a get request to the server to 
             _axios2.default.get('/favorites').then(function (results) {
                 console.log('GOT favorites!!', results.data);
                 _this3.setState({ tortaList: results.data });
+                console.log('favorites', _this3.state);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -22490,13 +22492,15 @@ var App = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            console.log('render state: ', this.state);
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     'h1',
                     null,
-                    'TortAmigo'
+                    'TortAmigo ',
+                    _react2.default.createElement('img', { id: 'tortaman', src: 'tortaman.gif' })
                 ),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
@@ -24113,6 +24117,7 @@ var TortaList = function (_React$Component) {
     _createClass(TortaList, [{
         key: 'render',
         value: function render() {
+            console.log('tortalist state: ', this.props.tortaList);
             return _react2.default.createElement(
                 'table',
                 { style: { width: '100%' } },
@@ -24166,7 +24171,7 @@ var Torta = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Torta.__proto__ || Object.getPrototypeOf(Torta)).call(this, props));
 
         _this.saveToFavorites = _this.saveToFavorites.bind(_this);
-        _this.state = _this.props.torta;
+        // this.state.torta = this.props.torta;
 
         //{
         // image_url: this.props.torta.image_url,
@@ -24207,6 +24212,7 @@ var Torta = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            console.log('torta state: ', this.props.torta);
             return _react2.default.createElement(
                 'div',
                 null,
@@ -24216,29 +24222,29 @@ var Torta = function (_React$Component) {
                     _react2.default.createElement(
                         'td',
                         null,
-                        _react2.default.createElement('img', { className: 'torta-pic', src: this.state.image, style: { height: "100px" } })
+                        _react2.default.createElement('img', { className: 'torta-pic', src: this.props.torta.image, style: { height: "100px" } })
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
-                        this.state.name
+                        this.props.torta.name
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
-                        this.state.city
+                        this.props.torta.city
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
-                        this.state.rating,
+                        this.props.torta.rating,
                         '/5'
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
                         'Reviews: ',
-                        this.state.reviewCount
+                        this.props.torta.reviewCount
                     )
                 ),
                 _react2.default.createElement(

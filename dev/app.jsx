@@ -13,13 +13,13 @@ class App extends React.Component {
         this.showFavorites = this.showFavorites.bind(this);
     }
   
-  getTortas() {
+  getTortas(e) {
+    e.preventDefault();  
     let query = { text: 'ayyoo' };
     
     axios
         .post('/search', query)
             .then(results => {
-                console.log(results.data);
 
                 let newTortaList = [];
                 
@@ -42,12 +42,14 @@ class App extends React.Component {
             })
   }
 
-  showFavorites() {
+  showFavorites(e) {
+    e.preventDefault();
     //wipe current state and send a get request to the server to 
     axios.get('/favorites')
         .then(results => {
             console.log('GOT favorites!!', results.data);
             this.setState({ tortaList: results.data });
+            console.log('favorites', this.state)
         })
         .catch(err => {
             console.log(err);
@@ -55,9 +57,10 @@ class App extends React.Component {
   }
 
   render() {
+      console.log('render state: ', this.state)
     return (
         <div>
-            <h1>TortAmigo</h1>
+            <h1>TortAmigo <img id="tortaman" src="tortaman.gif"/></h1>
             <br/>
             <button onClick={this.getTortas}>Get Tortas!</button>
             <button onClick={this.showFavorites}> Show Favorites</button>

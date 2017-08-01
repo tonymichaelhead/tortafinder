@@ -3,3 +3,9 @@
     height: 100px;
     object-fit: cover;
 }
+
+#tortaman {
+    max-width: 20%;
+    max-height: 20%;
+    /* float: right; */
+}
