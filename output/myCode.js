@@ -23184,19 +23184,18 @@ var App = function (_React$Component) {
                 _react2.default.createElement(
                     'h1',
                     null,
-                    'TortAmigo ',
-                    _react2.default.createElement('img', { id: 'tortaman', src: 'tortaman.gif' })
+                    'TortAmigo'
                 ),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'button',
-                    { onClick: this.getTortas },
+                    { className: 'btn btn-lg btn-default', id: 'front-buttons', onClick: this.getTortas },
                     'Get Tortas!'
                 ),
                 _react2.default.createElement(
                     'button',
-                    { onClick: this.showFavorites },
-                    ' Show Favorites'
+                    { className: 'btn btn-lg btn-default', id: 'front-buttons', onClick: this.showFavorites },
+                    'Favorites'
                 ),
                 _react2.default.createElement(_tortaList2.default, { tortaList: this.state.tortaList })
             );
@@ -24119,11 +24118,15 @@ var TortaList = function (_React$Component) {
         value: function render() {
             console.log('tortalist state: ', this.props.tortaList);
             return _react2.default.createElement(
-                'table',
-                { style: { width: '100%' } },
-                this.props.tortaList.map(function (torta) {
-                    return _react2.default.createElement(_torta2.default, { torta: torta });
-                })
+                'div',
+                { className: 'full-width-div', id: 'torta-list' },
+                _react2.default.createElement(
+                    'table',
+                    { style: { width: '100%' } },
+                    this.props.tortaList.map(function (torta) {
+                        return _react2.default.createElement(_torta2.default, { torta: torta });
+                    })
+                )
             );
         }
     }]);
@@ -24215,7 +24218,7 @@ var Torta = function (_React$Component) {
             console.log('torta state: ', this.props.torta);
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'table-responsive', id: 'list-item' },
                 _react2.default.createElement(
                     'tr',
                     null,
@@ -24245,13 +24248,14 @@ var Torta = function (_React$Component) {
                         null,
                         'Reviews: ',
                         this.props.torta.reviewCount
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { id: 'add-to-fav-button', onClick: this.saveToFavorites },
+                        'Favorite this!'
                     )
                 ),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.saveToFavorites },
-                    'Favorite this!'
-                )
+                _react2.default.createElement('hr', null)
             );
         }
     }]);

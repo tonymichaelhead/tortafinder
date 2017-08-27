@@ -9,9 +9,11 @@ class TortaList extends React.Component {
     render() {
         console.log('tortalist state: ', this.props.tortaList)
         return (
-            <table style={{width:'100%'}}>
-                    { this.props.tortaList.map(torta => <Torta torta={torta}/>) }
-            </table>
+            <div className="full-width-div" id="torta-list">
+                <table style={{width:'100%'}}>
+                        { this.props.tortaList.map(torta => <Torta torta={torta}/>) }
+                </table>
+            </div>
         )
     }
 }

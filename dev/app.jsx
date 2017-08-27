@@ -60,10 +60,10 @@ class App extends React.Component {
       console.log('render state: ', this.state)
     return (
         <div>
-            <h1>TortAmigo <img id="tortaman" src="tortaman.gif"/></h1>
+            <h1>TortAmigo</h1>
             <br/>
-            <button onClick={this.getTortas}>Get Tortas!</button>
-            <button onClick={this.showFavorites}> Show Favorites</button>
+            <button className="btn btn-lg btn-default" id="front-buttons" onClick={this.getTortas}>Get Tortas!</button>
+            <button className="btn btn-lg btn-default" id="front-buttons" onClick={this.showFavorites}>Favorites</button>
             <TortaList tortaList={this.state.tortaList}/>
         </div>
     );

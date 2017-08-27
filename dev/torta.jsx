@@ -47,15 +47,16 @@ class Torta extends React.Component{
     render(){
         console.log('torta state: ', this.props.torta)
         return (
-            <div>
+            <div className="table-responsive" id="list-item">
                 <tr>
                     <td><img className="torta-pic" src={this.props.torta.image} style={{height:"100px"}}/></td>
                     <td>{this.props.torta.name}</td>
                     <td>{this.props.torta.city}</td> 
                     <td>{this.props.torta.rating}/5</td>
                     <td>Reviews: {this.props.torta.reviewCount}</td>
+                    <button id="add-to-fav-button" onClick={this.saveToFavorites}>Favorite this!</button>
                 </tr>
-                <button onClick={this.saveToFavorites}>Favorite this!</button>
+                <hr/>
             </div>
         )
     }
